@@ -195,7 +195,7 @@ class WebSocketsHandler(socketserver.StreamRequestHandler):
                         frame_data += chr(self.bytetonum(char))
 
                 decoded += frame_data
-                self._log.debug('read_message: %s...' % (decoded[:10]))
+                self._log.debug('read_message: %s' % (from_websocket(decoded)))
             self.on_message(from_websocket(decoded))
         except socket.timeout:
             return False
@@ -206,13 +206,13 @@ class WebSocketsHandler(socketserver.StreamRequestHandler):
 
     def send_message(self, message):
         if not self.handshake_done:
-            self._log.warning("ignoring message %s (handshake not done)" % message[:10])
+            self._log.warning("ignoring message %s (handshake not done)" % from_websocket(message))
             return False
         
         if message[0] == "2":
             i = 0
 
-        self._log.debug('send_message: %s... -> %s' % (message[:10], self.client_address))
+        self._log.debug('send_message: %s -> %s' % (from_websocket(message), self.client_address))
         out = bytearray()
         out.append(129)
         length = len(message)
