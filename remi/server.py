@@ -913,6 +913,7 @@ class Server(object):
             except Exception:
                 self._alive = False
         self._log.debug(' ** serve_forever() quitting')
+        #sys.exit(0)
 
     def stop(self):
         global clients
@@ -953,11 +954,9 @@ def start(main_gui_class, **kwargs):
     """This method starts the webserver with a specific App subclass."""
     #debug = True if sys.flags.debug else kwargs.pop('debug', False)
     standalone = kwargs.pop('standalone', False)
-
-    #logging.basicConfig(level=logging.DEBUG if debug else logging.INFO,
-    #                    format='%(name)-16s %(levelname)-8s %(message)s')
-    #logging.getLogger('remi').setLevel(
-    #        level=logging.DEBUG if debug else logging.INFO)
+    debug = kwargs.pop('debug', False)
+    if debug:
+        logging.getLogger('remi').setLevel(level=logging.DEBUG)
 
     if standalone:
         s = StandaloneServer(main_gui_class, start=True, **kwargs)
