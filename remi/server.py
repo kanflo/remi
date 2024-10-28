@@ -354,6 +354,11 @@ class App(BaseHTTPRequestHandler, object):
         self._log = logging.getLogger('remi.request')
         super(App, self).__init__(request, client_address, server)
 
+    def log_message(self, format, *args):
+        """Override log_message as BaseHTTPRequestHandler logs to sys.stderr"""
+        message = format % args
+        self._log.info(f"{self.address_string()} : {message.translate(self._control_char_table)}")
+
     def _get_list_from_app_args(self, name):
         try:
             v = self._app_args[name]
