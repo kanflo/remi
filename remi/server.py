@@ -296,11 +296,17 @@ class WebSocketsHandler(socketserver.StreamRequestHandler):
                             len(msg_type) + len(widget_id) + len(function_name) + 3:]
 
                         param_dict = parse_parametrs(params)
-
-                        callback = get_method_by_name(runtimeInstances[widget_id], function_name)
-                        if callback is not None:
-                            callback(**param_dict)
-
+                        try:
+                            if widget_id in runtimeInstances:
+                                callback = get_method_by_name(runtimeInstances[widget_id], function_name)
+                                if callback is not None:
+                                    callback(**param_dict)
+                            else:
+                                self._log.warning(f"Ignoring widget id {widget_id}")
+                        except TypeError as e:
+                            # argument of type 'BODY' is not iterable is caused when
+                            # an open app reconnects
+                            self._log.warning(f"on_message: {e}")
             except Exception:
                 self._log.error('error parsing websocket', exc_info=True)
 
