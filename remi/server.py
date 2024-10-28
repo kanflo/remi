@@ -205,9 +205,10 @@ class WebSocketsHandler(socketserver.StreamRequestHandler):
         return True
 
     def send_message(self, message):
-        if 'class="color"' in from_websocket(message):
-            self._log.warning("ignoring message that would close the color picker on iOS")
-            return True
+# TODO: Need to filter out setting on colorpicker on active client as this closes the colorpicker on webkit browsers (iOS, macOS)
+#        if 'class="color"' in from_websocket(message):
+#            self._log.warning("ignoring message that would close the color picker on iOS: %s" % from_websocket(message))
+#            return True
         if not self.handshake_done:
             self._log.warning("ignoring message %s (handshake not done)" % from_websocket(message))
             return False
