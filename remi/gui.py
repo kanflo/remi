@@ -2913,6 +2913,34 @@ class Image(Widget):
         """
         self.attributes['src'] = image
 
+class Spinner(Widget):
+    """CSS spinner widget."""
+
+    def __init__(self, size: int = 32, color: str = "#000", *args, **kwargs):
+        """
+        Args:
+            kwargs: See Widget.__init__()
+        """
+        style = {
+            "width": f"{size}px",
+            "height": f"{size}px",
+            "border": f"5px solid {color}",
+            "border-bottom-color": "transparent",
+            "border-radius": "50%",
+            "display": "inline-block",
+            "box-sizing": "border-box",
+            "animation": "rotation 1s linear infinite",
+        }
+
+        super(Spinner, self).__init__(style = style, *args, **kwargs)
+        self.attributes['class'] = "div"
+
+
+    def innerHTML(self, local_changed_widgets):
+        del local_changed_widgets
+        return "<span></span>"
+
+
 
 class Table(Container):
     """
