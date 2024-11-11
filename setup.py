@@ -19,6 +19,7 @@ params = {
     'author_email':"dddomodossola@gmail.com",
     'license':"Apache",
     'packages':setuptools.find_packages(),
+    'install_requires': ['coloredlogs==15.0.1'],
     'include_package_data':True,
     'setup_requires':['setuptools_scm'],
 }
