@@ -910,7 +910,7 @@ class Server(object):
         try:
             def sig_manager(sig, callstack):
                 self.stop()
-                self._log.info('*** signal %d received.' % sig)
+                self._log.warning(f'Signal {sig} received.')
                 return signal.SIG_IGN
             prev_handler = signal.signal(signal.SIGINT, sig_manager)
         except Exception:
