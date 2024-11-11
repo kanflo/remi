@@ -216,12 +216,14 @@ class MyApp(App):
         if (self.LeftNum >= self.MatchNum): 
             Side = [self.lblLeftNum, self.wid2, self.LeftNum, self.btLeftPlus, self.btLeftMinus]
             t = threading.Thread(target=self.ChangeColor, args = (Side))
+            t.daemon = True
             t.start()
             self.LeftMatchNum = self.LeftMatchNum + 1
         # Right side
         elif (self.RightNum >= self.MatchNum):
             Side = [self.lblRightNum, self.wid3, self.RightNum, self.btRightPlus, self.btRightMinus]
             t = threading.Thread(target=self.ChangeColor, args = (Side))
+            t.daemon = True
             t.start()
             self.RightMatchNum = self.RightMatchNum + 1
 

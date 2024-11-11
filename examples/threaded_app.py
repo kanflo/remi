@@ -43,6 +43,7 @@ class MyApp(App):
         self.my_thread_result = 0
         # Here I start a parallel thread that executes my algorithm for a long time
         t = threading.Thread(target=self.my_intensive_long_time_algorithm)
+        t.daemon = True
         t.start()
 
         bt.onclick.do(self.on_button_pressed)

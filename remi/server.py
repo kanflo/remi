@@ -803,7 +803,7 @@ class App(BaseHTTPRequestHandler, object):
 
 class ThreadedHTTPServer(socketserver.ThreadingMixIn, HTTPServer):
 
-    daemon_threads = False
+    daemon_threads = True
 
     # noinspection PyPep8Naming
     def __init__(self, server_address, RequestHandlerClass,
@@ -900,7 +900,7 @@ class Server(object):
                 else:
                     webbrowser.open(self._base_address)
         self._sth = threading.Thread(target=self._sserver.serve_forever)
-        self._sth.daemon = False
+        self._sth.daemon = True
         self._sth.start()
 
     def serve_forever(self):
